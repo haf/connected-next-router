@@ -1,6 +1,6 @@
 /* global __NEXT_DATA__ */
 import rewriteUrlForNextExport from './utils/rewriteUrlForNextExport'
-import { parse, format } from 'url'
+import { parse, format, UrlObject } from 'url'
 import { Router } from 'next/router';
 import { AnyAction } from 'redux';
 
@@ -16,7 +16,7 @@ export const defaultOpts = {
 }
 
 function toRoute(path: string | undefined) {
-  if (path == null) throw new Error("'path' parameter is null or undefined")
+  if (typeof path === 'undefined') throw new Error("'path' parameter is null or undefined")
   return path.replace(/\/$/, '') || '/'
 }
 
@@ -47,7 +47,7 @@ export function patchRouter(Router: { router: Router } & any, opts: PatchRouterP
   const { shallowTimeTravel } = opts
   Router._patchedByConnectedRouter = true
   Router.router._unpatchedChange = Router.router.change
-  Router.router.change = function(method: string, _url: string, _as: string, options: Record<string, any>, action: AnyAction) {
+  Router.router.change = function(method: string, _url: string, _as: string | UrlObject, options: Record<string, any>, action: AnyAction) {
     let as = typeof _as === 'object' ? format(_as) : _as
     return Router.router._unpatchedChange(method, _url, _as, options)
       // @ts-ignore

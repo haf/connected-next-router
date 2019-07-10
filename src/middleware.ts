@@ -1,6 +1,5 @@
 import NextRouter, { PublicRouterInstance } from 'next/router'
 import * as rms from './constants'
-import { CALL_ROUTER_METHOD } from './constants'
 import { AnyAction } from 'redux';
 
 export type RouterMiddlewareOpts = {
@@ -27,7 +26,7 @@ export default function createRouterMiddleware(opts: RouterMiddlewareOpts = {}) 
 
   return () => (next: (a: AnyAction) => any) => (action: AnyAction) => {
     const { type, payload } = action
-    if (type !== CALL_ROUTER_METHOD) {
+    if (type !== rms.CALL_ROUTER_METHOD) {
       return next(action)
     }
 

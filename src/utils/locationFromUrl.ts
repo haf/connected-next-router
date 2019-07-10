@@ -10,7 +10,7 @@ export type LocationFromUrlObject = {
 
 export default function locationFromUrl(_url: UrlObject | string): UrlObject {
   if (typeof _url === 'object') {
-    const { hash, search, pathname } = _url as UrlObject
+    const { hash, search, pathname } = _url
     return { pathname, search, hash }
   } else {
     const { hash, search, pathname } = parse(_url)
