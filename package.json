@@ -28,7 +28,7 @@
     "build:es5": "tsc",
     "build:es6": "tsc --module esnext --target es2019 --outDir dist/jsm",
     "build:webpack": "webpack --mode production",
-    "build": "npm run build:es5 && npm run build:es6 && npm run build:webpack && npm run build:docs",
+    "build": "npm run build:es5 && npm run build:es6 && npm run build:webpack",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
     "test:prod": "npm run lint && npm run test -- --no-cache",
