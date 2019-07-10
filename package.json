@@ -5,7 +5,7 @@
   "keywords": [],
   "main": "dist/connected-next-router.js",
   "module": "dist/es6/index.js",
-  "typings": "dist/types",
+  "typings": "dist/es6/index.d.ts",
   "files": [
     "dist"
   ],
