@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const path = require('path')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 // https://marcobotto.com/blog/compiling-and-bundling-typescript-libraries-with-webpack/
 
@@ -12,9 +13,20 @@ module.exports = {
     library: 'connectedNextRouter',
     libraryTarget: 'umd'
   },
+
   externals: {
-    "react": "React",
-    "react-dom": "ReactDOM"
+    "react-dom": {
+      root: "ReactDOM",
+      commonjs2: "react-dom",
+      commonjs: "react-dom",
+      amd: "react-dom"
+    },
+    react: {
+      root: "React",
+      commonjs2: "react",
+      commonjs: "react",
+      amd: "react"
+    }
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js']

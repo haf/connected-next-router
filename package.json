@@ -3,9 +3,9 @@
   "version": "4.0.0",
   "description": "",
   "keywords": [],
-  "main": "dist/connected-next-router.js",
-  "module": "dist/es6/index.js",
-  "typings": "dist/es6/index.d.ts",
+  "main": "dist/es5/index.js",
+  "module": "dist/jsm/index.js",
+  "types": "dist/jsm/index.d.ts",
   "files": [
     "dist"
   ],
@@ -25,9 +25,9 @@
     "prebuild": "rimraf dist",
     "build:docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
     "build:es5": "tsc",
-    "build:es6": "tsc -m es6 --outDir dist/es6",
+    "build:es6": "tsc -m es6 --outDir dist/jsm",
     "build:webpack": "webpack --mode production",
-    "build": "npm run build:es6 && npm run build:es5 && npm run build:webpack && npm run build:docs",
+    "build": "npm run build:es5 && npm run build:es6 && npm run build:webpack && npm run build:docs",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
     "test:prod": "npm run lint && npm run test -- --no-cache",
@@ -135,6 +135,7 @@
     "react-redux": "^7.1.0",
     "redux": "^4.0.1",
     "ts-loader": "^6.0.4",
+    "uglifyjs-webpack-plugin": "^2.1.3",
     "webpack-cli": "^3.3.5"
   }
 }
