@@ -4,14 +4,14 @@ import NextRouter, { SingletonRouter } from 'next/router'
 import { onLocationChanged } from './actions'
 import { patchRouter, unpatchRouter } from './patchRouter'
 import locationFromUrl from './utils/locationFromUrl'
-import { AnyAction, Store } from 'redux';
-import { getIn } from './structure/plain';
+import { Store } from 'redux'
+import { getIn } from './structure/plain'
 
 export type ConnectedRouterProps = {
   children?: React.ReactNode;
-  shallowTimeTravel: boolean;
-  reducerKey: string;
-  Router: SingletonRouter;
+  shallowTimeTravel?: boolean;
+  reducerKey?: string;
+  Router?: SingletonRouter;
   onLocationChanged: (url: URL, action: string) => void;
   store: Store
 }
@@ -21,18 +21,17 @@ export type ConnectedRouterProps = {
  * to update router state in redux store.
  */
 class ConnectedRouter extends React.Component<ConnectedRouterProps> {
-  static defaultProps = {
-    shallowTimeTravel: true,
-    reducerKey: 'router',
-    Router: NextRouter
-  }
-
   private inTimeTravelling: boolean
   private _isTimeTravelEnabled: boolean
   private unsubscribe: null | (() => void)
 
   constructor(props: ConnectedRouterProps) {
-    super(props)
+    super({
+      ...props,
+      shallowTimeTravel: props.shallowTimeTravel == null ? true : props.shallowTimeTravel,
+      reducerKey: props.reducerKey == null ? 'router' : props.reducerKey,
+      Router: props.Router || NextRouter
+    })
     this.inTimeTravelling = false
     this.unsubscribe = null
     this._isTimeTravelEnabled = false
@@ -40,10 +39,10 @@ class ConnectedRouter extends React.Component<ConnectedRouterProps> {
 
   componentDidMount() {
     const { shallowTimeTravel, Router, store } = this.props
-    Router.ready(() => {
-      patchRouter(Router, { shallowTimeTravel })
+    Router!.ready(() => {
+      patchRouter(Router, { shallowTimeTravel: shallowTimeTravel! })
       this.unsubscribe = store.subscribe(this.listenStoreChanges)
-      if (Router.router != null) {
+      if (Router!.router != null) {
         // @ts-ignore
         Router.router.events.on('routeChangeStart', this.disableTimeTravel)
         // @ts-ignore
@@ -94,11 +93,11 @@ class ConnectedRouter extends React.Component<ConnectedRouterProps> {
 
     const { Router, shallowTimeTravel, reducerKey, store } = this.props
     // Extract store's location
-    const storeLocation = getIn(store.getState(), [reducerKey, 'location'])
+    const storeLocation = getIn(store.getState(), [reducerKey!, 'location'])
     const { pathname: pathnameInStore, search: searchInStore, hash: hashInStore } = storeLocation
 
     // Extract Router's location
-    const historyLocation = locationFromUrl(Router.asPath)
+    const historyLocation = locationFromUrl(Router!.asPath)
     const { pathname: pathnameInHistory, search: searchInHistory, hash: hashInHistory } = historyLocation
 
     // If we do time travelling, the location in store is changed but location in Router is not changed
