@@ -13,7 +13,10 @@ export const initialRouterState = {
 export default function routerReducer(state = initialRouterState, action) {
     switch (action.type) {
         case LOCATION_CHANGE:
-            return { ...state, ...action.payload };
+            return {
+                ...state,
+                ...action.payload
+            };
         default:
             return state;
     }

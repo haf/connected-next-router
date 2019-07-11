@@ -65,7 +65,7 @@ class ConnectedRouter extends React.Component {
     componentDidMount() {
         const { shallowTimeTravel, Router, store } = this.props;
         Router.ready(() => {
-            patchRouter(Router, { shallowTimeTravel });
+            patchRouter(Router, { shallowTimeTravel: shallowTimeTravel });
             this.unsubscribe = store.subscribe(this.listenStoreChanges);
             if (Router.router != null) {
                 // @ts-ignore

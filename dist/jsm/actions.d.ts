@@ -1,13 +1,12 @@
-import { AnyAction } from 'redux';
 import { RouterMethod, LOCATION_CHANGE } from './constants';
 export declare type LocationChangedAction = {
     type: typeof LOCATION_CHANGE;
     payload: {
-        location: any;
-        action: AnyAction;
+        location: URL;
+        action: string;
     };
 };
-export declare function locationChanged(location: any, action: AnyAction): LocationChangedAction;
+export declare function locationChanged(location: URL, action: string): LocationChangedAction;
 export declare const onLocationChanged: typeof locationChanged;
 /**
  * These actions correspond to the history API.

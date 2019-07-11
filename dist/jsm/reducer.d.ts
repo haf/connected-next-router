@@ -1,7 +1,6 @@
-/// <reference types="node" />
 import { LocationChangedAction } from './actions';
 export declare const initialRouterState: {
-    location: import("url").UrlObject;
+    location: URL;
     action: string;
 };
 /**
@@ -11,12 +10,9 @@ export declare const initialRouterState: {
  * this state is discouraged.
  */
 export default function routerReducer(state: {
-    location: import("url").UrlObject;
+    location: URL;
     action: string;
 } | undefined, action: LocationChangedAction): {
-    location: import("url").UrlObject;
+    location: URL;
     action: string;
-} | {
-    location: any;
-    action: import("redux").AnyAction;
 };

@@ -1,13 +1,15 @@
-import { parse } from 'url';
-// TO CONSIDER: browser env? https://developer.mozilla.org/en-US/docs/Web/API/URL because 'url' is a node module
-export default function locationFromUrl(_url) {
-    if (typeof _url === 'object') {
-        const { hash, search, pathname } = _url;
-        return { pathname, search, hash };
-    }
+export default function locationFromUrl(url) {
+    if (url instanceof URL)
+        return url;
     else {
-        const { hash, search, pathname } = parse(_url);
-        return { pathname, search, hash };
+        try {
+            return new URL(url);
+        }
+        catch {
+            return typeof window !== 'undefined'
+                ? new URL(window.location.href)
+                : new URL("https://example.com");
+        }
     }
 }
 //# sourceMappingURL=locationFromUrl.js.map
