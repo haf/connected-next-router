@@ -1,9 +1,9 @@
-import NextRouter, { PublicRouterInstance } from 'next/router'
+import NextRouter, { Router } from 'next/router'
 import * as rms from './constants'
 import { AnyAction } from 'redux';
 
 export type RouterMiddlewareOpts = {
-  Router?: PublicRouterInstance;
+  Router?: Router;
   methods?: Record<string, Function>
 }
 
