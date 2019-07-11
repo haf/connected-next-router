@@ -1,15 +1,14 @@
-import { AnyAction, Action } from 'redux'
 import { PUSH, REPLACE, GO, PREFETCH, RouterMethod, LOCATION_CHANGE, CALL_ROUTER_METHOD } from './constants';
 
-export type LocationChangedAction<A extends Action> = {
+export type LocationChangedAction = {
   type: typeof LOCATION_CHANGE,
   payload: {
     location: URL,
-    action: A
+    action: string
   }
 }
 
-export function locationChanged(location: URL, action: AnyAction): LocationChangedAction<AnyAction> {
+export function locationChanged(location: URL, action: string): LocationChangedAction {
   return {
     type: LOCATION_CHANGE,
     payload: {

@@ -12,7 +12,7 @@ export type ConnectedRouterProps = {
   shallowTimeTravel: boolean;
   reducerKey: string;
   Router: SingletonRouter;
-  onLocationChanged: (url: URL, action: AnyAction) => void;
+  onLocationChanged: (url: URL, action: string) => void;
   store: Store
 }
 
@@ -118,7 +118,7 @@ class ConnectedRouter extends React.Component<ConnectedRouterProps> {
     }
   }
 
-  listenRouteChanges = (url: string | URL, action: AnyAction) => {
+  listenRouteChanges = (url: string | URL, action: string) => {
     // Dispatch onLocationChanged except when we're in time travelling
     if (!this.inTimeTravelling) {
       this.props.onLocationChanged(locationFromUrl(url), action)
