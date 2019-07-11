@@ -130,7 +130,7 @@ class ConnectedRouter extends React.Component<ConnectedRouterProps> {
 }
 
 export type ConnectedRouterWithContextProps = ConnectedRouterProps & {
-  context: React.Context<ReactReduxContextValue>;
+  context?: React.Context<ReactReduxContextValue>;
 }
 
 const ConnectedRouterWithContext = (props: ConnectedRouterWithContextProps) => {
