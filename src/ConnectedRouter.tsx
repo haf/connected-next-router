@@ -25,13 +25,14 @@ class ConnectedRouter extends React.Component<ConnectedRouterProps> {
   private _isTimeTravelEnabled: boolean
   private unsubscribe: null | (() => void)
 
+  static defaultProps = {
+    shallowTimeTravel: true,
+    reducerKey: 'router',
+    Router: NextRouter
+  }
+
   constructor(props: ConnectedRouterProps) {
-    super({
-      ...props,
-      shallowTimeTravel: props.shallowTimeTravel == null ? true : props.shallowTimeTravel,
-      reducerKey: props.reducerKey == null ? 'router' : props.reducerKey,
-      Router: props.Router || NextRouter
-    })
+    super(props)
     this.inTimeTravelling = false
     this.unsubscribe = null
     this._isTimeTravelEnabled = false
