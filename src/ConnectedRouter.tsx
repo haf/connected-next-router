@@ -13,7 +13,7 @@ export type ConnectedRouterProps = {
   reducerKey?: string;
   Router?: SingletonRouter;
   onLocationChanged: (url: URL, action: string) => void;
-  store: Store
+  store?: Store
 }
 
 /*
@@ -41,7 +41,7 @@ class ConnectedRouter extends React.Component<ConnectedRouterProps> {
     const { shallowTimeTravel, Router, store } = this.props
     Router!.ready(() => {
       patchRouter(Router, { shallowTimeTravel: shallowTimeTravel! })
-      this.unsubscribe = store.subscribe(this.listenStoreChanges)
+      this.unsubscribe = store!.subscribe(this.listenStoreChanges)
       if (Router!.router != null) {
         // @ts-ignore
         Router.router.events.on('routeChangeStart', this.disableTimeTravel)
@@ -93,7 +93,7 @@ class ConnectedRouter extends React.Component<ConnectedRouterProps> {
 
     const { Router, shallowTimeTravel, reducerKey, store } = this.props
     // Extract store's location
-    const storeLocation = getIn(store.getState(), [reducerKey!, 'location'])
+    const storeLocation = getIn(store!.getState(), [reducerKey!, 'location'])
     const { pathname: pathnameInStore, search: searchInStore, hash: hashInStore } = storeLocation
 
     // Extract Router's location
