@@ -4,7 +4,6 @@ import NextRouter, { SingletonRouter } from 'next/router'
 import { onLocationChanged } from './actions'
 import { patchRouter, unpatchRouter } from './patchRouter'
 import locationFromUrl from './utils/locationFromUrl'
-import { UrlObject } from 'url';
 import { AnyAction, Store } from 'redux';
 import { getIn } from './structure/plain';
 
@@ -13,7 +12,7 @@ export type ConnectedRouterProps = {
   shallowTimeTravel: boolean;
   reducerKey: string;
   Router: SingletonRouter;
-  onLocationChanged: (url: UrlObject, action: AnyAction) => void;
+  onLocationChanged: (url: URL, action: AnyAction) => void;
   store: Store
 }
 
@@ -119,7 +118,7 @@ class ConnectedRouter extends React.Component<ConnectedRouterProps> {
     }
   }
 
-  listenRouteChanges = (url: string | UrlObject, action: AnyAction) => {
+  listenRouteChanges = (url: string | URL, action: AnyAction) => {
     // Dispatch onLocationChanged except when we're in time travelling
     if (!this.inTimeTravelling) {
       this.props.onLocationChanged(locationFromUrl(url), action)
